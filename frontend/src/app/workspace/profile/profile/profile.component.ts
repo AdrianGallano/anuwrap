@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from '../../navigation/navigation.component';
-import { AuthService } from '../../../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
     selector: 'app-profile',
@@ -17,20 +17,19 @@ export class ProfileComponent implements OnInit {
     constructor(private authService: AuthService) { }
   
     ngOnInit(): void {
-      const userId = 1; // Replace with the actual user ID
-      this.fetchUserData(userId);
+      this.fetchUserData();
     }
   
-    fetchUserData(userId: number): void {
-      this.authService.getUserById(userId).subscribe(
-        response => {
-          this.userData = response.user; // Assuming user data is nested under 'user' property
+    fetchUserData() {
+      this.authService.getUser().subscribe(
+        (data) => {
+          // Handle successful response
+          this.userData = data;
         },
-        error => {
+        (error) => {
+          // Handle error
           console.error('Error fetching user data:', error);
-          // Handle error appropriately
         }
       );
     }
   }
-  
