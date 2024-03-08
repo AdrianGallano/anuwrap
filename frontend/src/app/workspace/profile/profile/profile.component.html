@@ -1,8 +1,14 @@
 <main class="p-4 md:ml-64 h-auto pt-20">
   <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-[550px] mb-4">
     <div class="h-full w-full relative">
-      <div>
-
+      <div *ngIf="userData">
+        <h2>User Profile</h2>
+        <p>Username: {{ userData.username }}</p>
+        <p>Email: {{ userData.email }}</p>
+        <!-- Add more properties as needed -->
+      </div>
+      <div *ngIf="!userData">
+        <p>Loading user data...</p>
       </div>
     </div>
   </div>

@@ -19,6 +19,10 @@ export class LoginComponent {
       response => {
         // Handle successful login response
         console.log('Login successful:', response);
+         // Extract the token from the response body
+         const token = response.token;
+         // Store the token in local storage
+         localStorage.setItem('token', token);
         this.router.navigateByUrl('/workspacelist');
       },
       error => {

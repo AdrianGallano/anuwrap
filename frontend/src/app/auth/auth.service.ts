@@ -19,4 +19,26 @@ export class AuthService {
     // Send a POST request to your backend API to authenticate the user
     return this.http.post<any>(`${this.apiUrl}/token`, credentials);
   }
+  getUserData(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token available');
+    }
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<any>(`${this.apiUrl}/user`, { headers });
+  }
+
+  getUserById(userId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token available');
+    }
+    const headers = { 
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json' // Ensure correct content type
+    };
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers });
+  }
+  
+
 }
