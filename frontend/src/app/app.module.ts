@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RegisterComponent } from './auth/register/register.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [RegisterComponent, LoginComponent], 

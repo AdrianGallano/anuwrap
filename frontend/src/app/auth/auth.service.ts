@@ -1,6 +1,5 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { TokenService } from './token.service';
@@ -23,7 +22,10 @@ export class AuthService {
   login(credentials: { email: string, password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/token`, credentials).pipe(
       map(response => {
-        this.tokenService.setToken(response.data.token);
+        const token = response.token;
+        if (token) {
+          this.tokenService.setToken(token);
+        }
         return response;
       }),
       catchError(error => {
@@ -32,13 +34,41 @@ export class AuthService {
     );
   }
 
-  getUser(): Observable<any> {
+  getUserById(userId: number): Observable<any> {
     const token = this.tokenService.getToken();
     if (!token) {
       return throwError('Token not found. Please login first.');
     }
-    
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`${this.apiUrl}/user`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers }).pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
+
+  getUserInformation(userId: number): Observable<any> {
+    const token = this.tokenService.getToken();
+    if (!token) {
+      return throwError('Token not found. Please login first.');
+    }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers }).pipe(
+      catchError(error => {
+        return throwError(error);
+      })
+    );
+  }
+  
+
+  getUserIdFromToken(): number | null {
+    const token = this.tokenService.getToken();
+    if (token) {
+      // Decode the token to extract user ID
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      return tokenPayload && tokenPayload.user_id ? tokenPayload.user_id : null;
+    }
+    return null;
+}
+
 }

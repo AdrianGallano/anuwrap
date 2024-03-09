@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { LoginpopupComponent } from './loginpopup/loginpopup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TokenService } from '../token.service';
 
 @Component({
   selector: 'app-login',
@@ -12,33 +13,36 @@ import { MatDialog } from '@angular/material/dialog';
 export class LoginComponent {
   credentials = { email: '', password: '' };
 
-  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) {}
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private tokenService: TokenService) {}
 
   login() {
     this.authService.login(this.credentials).subscribe(
       response => {
-        // Handle successful login response
-        console.log('Login successful:', response);
-         // Extract the token from the response body
-         const token = response.token;
-         // Store the token in local storage
-         localStorage.setItem('token', token);
-        this.router.navigateByUrl('/workspacelist');
+        if (response.success) {
+          console.log('Login successful:', response);
+          console.log('Token received:', response.data.token); // Log the token here
+          this.tokenService.setToken(response.data.token); // Store the received token
+          console.log('Redirecting to workspace list...');
+          this.router.navigateByUrl('/workspacelist');
+        } else {
+          console.error('Login error:', response);
+          this.openloginErrorPopup();
+        }
       },
       error => {
-        // Handle login error
         console.error('Login error:', error);
         this.openloginErrorPopup();
       }
     );
   }
+  
   openloginErrorPopup(): void {
     const dialogRef = this.dialog.open(LoginpopupComponent, {
       width: '250px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The diaglog was closed');
-    })
+      console.log('The dialog was closed');
+    });
   }
 }

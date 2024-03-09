@@ -48,7 +48,7 @@ class TokenService
             200,
             true,
             "Login successful",
-            array("user" => $user)
+            array("user" => $user, "token" => $token)
         );
     }
     function create($user, $password)
@@ -75,7 +75,7 @@ class TokenService
             'httponly' => true
         ]);
 
-        return true;
+        return $token;
     }
 
     function delete()
