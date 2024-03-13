@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NavigationComponent } from '../../navigation/navigation.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,10 +12,15 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './editreport.component.css'
 })
 export class EditreportComponent {
+  reportId: any;
   
-  constructor(private router: Router){}
-  goToReport(reportId: string) {
-    this.router.navigate(['/report'])
+  constructor(private router: Router, private aRoute: ActivatedRoute){}
+
+  editReport() {
+    
+  }
+  goToReports() {
+    this.router.navigate(['../../report'], { relativeTo: this.aRoute })
   }
 }
 

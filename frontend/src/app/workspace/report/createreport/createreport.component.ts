@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../auth/auth.service';
 import { TokenService } from '../../../auth/token/token.service';
+import { relative } from 'path';
 
 @Component({
     selector: 'app-createreport',
@@ -21,17 +22,17 @@ export class CreatereportComponent implements OnInit {
   workspaceId: string = '';
   reportTypes: { report_type_id: number, name: string }[] = [];
   selectedReportType: number = 0;
-
+  reportId: any;
   constructor(
       private authService: AuthService,
       private router: Router,
       private tokenService: TokenService,
-      private route: ActivatedRoute
+      private aRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.fetchReportTypes();
-    this.workspaceId = this.route.snapshot.params['workspaceId'];
+    this.workspaceId = this.aRoute.snapshot.params['workspaceId'];
 }
 
 fetchReportTypes(): void {
@@ -63,5 +64,9 @@ fetchReportTypes(): void {
 
       console.log(reportData);
       // Continue with the createReport logic
+  }
+
+  goToReports() {
+    this.router.navigate(['../../report'], { relativeTo: this.aRoute })
   }
 }
