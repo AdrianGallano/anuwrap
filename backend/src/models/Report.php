@@ -31,7 +31,10 @@ class Report
 
     function getAll($workspace_id)
     {
-        $queryStr = "SELECT * FROM Report WHERE workspace_id = :workspace_id";
+        $queryStr = "SELECT Report.*, ReportType.* FROM Report 
+        JOIN ReportType ON Report.report_type_id = ReportType.report_type_id 
+        WHERE Report.workspace_id = :workspace_id";
+
         $stmt = $this->pdo->prepare($queryStr);
 
         try {
@@ -43,6 +46,7 @@ class Report
             return $report;
         } catch (PDOException $e) {
             error_log($e->getMessage());
+            var_dump($e->getMessage());
             return null;
         }
     }
@@ -62,11 +66,11 @@ class Report
 
         try {
             $stmt->execute(array(
-                    "title" => $title,
-                    "description" => $description,
-                    "content" => $content,
-                    "report_type_id" => $report_type_id,
-                    "workspace_id" => $workspace_id,
+                "title" => $title,
+                "description" => $description,
+                "content" => $content,
+                "report_type_id" => $report_type_id,
+                "workspace_id" => $workspace_id,
             ));
             return true;
         } catch (PDOException $e) {

@@ -9,10 +9,8 @@ import { WorkspacelistComponent } from '../workspace/workspacelist/workspacelist
 import { CreateworkspaceComponent } from '../workspace/createworkspace/createworkspace.component';
 import { ReportComponent } from '../workspace/report/report.component';
 import { CollageComponent } from '../workspace/collage/collage.component';
-import { NavigationComponent } from '../workspace/navigation/navigation.component';
 import { LayoutComponent } from '../layout/layout.component';
 import { EditprofileComponent } from '../workspace/profile/editprofile/editprofile.component';
-import { NavbarComponent } from '../workspace/navbar/navbar.component';
 import { CreatereportComponent } from '../workspace/report/createreport/createreport.component';
 import { DeleteworkspaceComponent } from '../workspace/deleteworkspace/deleteworkspace.component';
 import { EditworkspaceComponent } from '../workspace/editworkspace/editworkspace.component';
@@ -20,6 +18,9 @@ import { AuthGuard } from '../auth/auth.guard';
 import { NotfoundComponent } from '../errors/notfound/notfound.component';
 import { UnauthorizedComponent } from '../errors/unauthorized/unauthorized.component';
 import { AnnualreportComponent } from '../workspace/annualreport/annualreport.component';
+import { EditreportComponent } from '../workspace/report/editreport/editreport.component';
+import { DeletereportComponent } from '../workspace/report/deletereport/deletereport.component';
+import { ReportitemComponent } from '../workspace/report/reportitem/reportitem.component';
 
 const routes: Routes = [
     {
@@ -58,26 +59,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path: 'createworkspace',
-                component: CreateworkspaceComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'navigation',
-                component: NavigationComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'navbar',
-                component: NavbarComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'dashboard',
-                component: DashboardComponent,
-                canActivate: [AuthGuard]
-            },
-            {
                 path: 'profile',
                 component: ProfileComponent,
                 canActivate: [AuthGuard]
@@ -98,24 +79,58 @@ const routes: Routes = [
                 canActivate: [AuthGuard]
             },
             {
-                path: 'collage',
-                component: CollageComponent,
+                path: 'createworkspace',
+                component: CreateworkspaceComponent,
                 canActivate: [AuthGuard]
             },
             {
-                path: 'report',
-                component: ReportComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'annualreport',
-                component: AnnualreportComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'createreport/:workspaceId',
-                component: CreatereportComponent,
-                canActivate: [AuthGuard]
+                path: 'workspace/:workspace_id',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'dashboard',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'dashboard',
+                        component: DashboardComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'collage',
+                        component: CollageComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'report',
+                        component: ReportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'report/:report_id',
+                        component: ReportitemComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'annualreport',
+                        component: AnnualreportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'createreport',
+                        component: CreatereportComponent,
+                        canActivate: [AuthGuard]
+                    }, {
+                        path: 'editreport/:report_id',
+                        component: EditreportComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'deletereport/:report_id',
+                        component: DeletereportComponent,
+                        canActivate: [AuthGuard]
+                    }
+                ]
             },
             {
                 path: '**',

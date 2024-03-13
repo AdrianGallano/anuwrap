@@ -122,4 +122,69 @@ export class AuthService {
       return throwError(() => 'Unauthorized access or missing workspace ID');
     }
   }
+
+  getReports(workspaceId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/reports/${workspaceId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          return throwError(() => 'Error fetching workspace');
+        })
+      );
+    } else {
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
+    }
+  }
+
+  getReport(reportId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/report/${reportId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+
+          return throwError(() => 'Error fetching report');
+        })
+      );
+    } else {
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
+    }
+  }
+
+  deleteReport(reportId: any): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.delete<any>(`${this.apiUrl}/report/${reportId}`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          return throwError(() => 'Error deleting workspace');
+        })
+      );
+    } else {
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
+    }
+  }
+
+  getReportType(): Observable<any> {
+    const authInfo = this.tokenService.getAuth();
+
+    if (authInfo) {
+      const headers = authInfo[2];
+      return this.http.get<any>(`${this.apiUrl}/reporttype`, { headers: headers }).pipe(
+        catchError((error: any) => {
+          return throwError(() => 'Error fetching workspace');
+        })
+      );
+    } else {
+      // Handle unauthorized access or missing workspace ID
+      return throwError(() => 'Unauthorized access or missing workspace ID');
+    }
+  }
 }

@@ -49,8 +49,8 @@ export class WorkspacelistComponent implements OnInit {
   }
 
   openWorkspace(workspaceId: any): void {
-    console.log("open workspace id: ", workspaceId)
-    this.route.navigate([`/report`]);
+    console.log(`/workspace/${workspaceId}`);
+    this.route.navigate([`/workspace/${workspaceId}`]);
   }
 
   editWorkspace(workspaceId: any): void {

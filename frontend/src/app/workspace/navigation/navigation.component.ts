@@ -38,7 +38,6 @@ export class NavigationComponent implements OnInit {
         this.user.firstname = response.data.user.first_name;
         this.user.lastname = response.data.user.last_name;
         this.user.email = response.data.user.email;
-        console.log('User Data:', response.data.user);
       },
       (error) => {
         console.error('Error fetching user information:', error);
