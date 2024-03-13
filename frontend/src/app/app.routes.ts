@@ -3,7 +3,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './workspace/dashboard/dashboard.component';
 import { ProfileComponent } from './workspace/profile/profile/profile.component';
-import { WorkspaceComponent } from './workspace/workspace/workspace.component';
 import { WorkspacelistComponent } from './workspace/workspacelist/workspacelist.component';
 import { CreateworkspaceComponent } from './workspace/createworkspace/createworkspace.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -55,10 +54,6 @@ export const routes: Routes = [
             {
                 path: 'editprofile',
                 component: EditprofileComponent
-            },
-            {
-                path: 'workspace',
-                component: WorkspaceComponent
             },
             {
                 path: 'deleteworkspace/:id',

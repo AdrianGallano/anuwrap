@@ -26,7 +26,7 @@
                       </svg>
                     </div>
                     <input type="text" id="simple-search" placeholder="Search for products" required
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                      class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500">
                   </div>
                 </form>
               </div>
@@ -52,30 +52,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let workspace of workspaces" class="border-b  hover:bg-gray-100 ">
-                    <th scope="row" class="py-2 lg:pl-12 px-6  font-medium text-gray-900 whitespace-nowrap ">
+                  <tr *ngFor="let workspace of workspaces" class="border-b text-blue-600 hover:bg-gray-100 ">
+                    <th scope="row" class="py-2 lg:pl-12 px-6  font-medium whitespace-nowrap ">
                       <div class="flex items-center justify-start">
 
                         <h2>{{ workspace["name"] }}</h2>
                       </div>
                     </th>
 
-                    <td class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    <td class="px-6 py-3 font-medium whitespace-nowrap">
                       <div class="flex items-center justify-center">
                         {{ workspace["role_name"] | titlecase }}
                       </div>
                     </td>
-                    <td class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    <td class="px-6 py-3 font-medium whitespace-nowrap">
                       <div class="flex items-center justify-center">
                         {{ workspace.date_created | date:'medium' }}
                       </div>
                     </td>
-                    <td class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    <td class="px-6 py-3 font-medium whitespace-nowrap">
                       <div class="flex items-center justify-center">
                         {{ workspace.date_modified | date:'medium' }}
                       </div>
                     </td>
-                    <td class="flex justify-center items-center px-6 py-3 font-medium text-gray-900 whitespace-nowrap">
+                    <td class="flex justify-center items-center px-6 py-3 font-medium whitespace-nowrap">
                       <div class="flex items-center justify-evenly gap-3 min-w-80 max-w-md">
 
                         <button (click)="openWorkspace(workspace.workspace_id)"

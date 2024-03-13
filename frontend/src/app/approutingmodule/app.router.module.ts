@@ -5,7 +5,6 @@ import { RegisterComponent } from '../auth/register/register.component';
 import { RegisterSuccessComponent } from '../auth/register-success/register-success.component';
 import { DashboardComponent } from '../workspace/dashboard/dashboard.component';
 import { ProfileComponent } from '../workspace/profile/profile/profile.component';
-import { WorkspaceComponent } from '../workspace/workspace/workspace.component';
 import { WorkspacelistComponent } from '../workspace/workspacelist/workspacelist.component';
 import { CreateworkspaceComponent } from '../workspace/createworkspace/createworkspace.component';
 import { ReportComponent } from '../workspace/report/report.component';
@@ -86,11 +85,6 @@ const routes: Routes = [
             {
                 path: 'editprofile',
                 component: EditprofileComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path: 'workspace',
-                component: WorkspaceComponent,
                 canActivate: [AuthGuard]
             },
             {

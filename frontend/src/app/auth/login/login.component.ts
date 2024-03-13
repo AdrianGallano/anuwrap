@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { TokenService } from '../token/token.service';
@@ -10,10 +10,16 @@ import { Route, Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   credentials = { email: '', password: '' };
   error = "";
   constructor(private authService: AuthService, private router: Router, private tokenService: TokenService) { }
+
+  ngOnInit(): void {
+    if (this.tokenService.getToken()?.length !== 0) {
+      this.router.navigate(["/workspacelist"]); 
+    }
+  }
 
   login() {
     this.authService.login(this.credentials).subscribe(
